@@ -1,0 +1,16 @@
+# After modifications please run 'systemctl daemon-reload'
+
+[Unit]
+Description=ITPlus Hub Service
+After=network-online.target
+
+[Service]
+PIDFile=/var/run/itplus-hub/pid
+Type=simple
+WorkingDirectory=/opt/itplus/hub
+ExecStart=/opt/itplus/hub/itplus-hub  
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

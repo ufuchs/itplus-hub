@@ -1,14 +1,11 @@
-# Binaries for programs and plugins
-*.exe
-*.dll
-*.so
-*.dylib
+.DS_Store
 
-# Test binary, build with `go test -c`
-*.test
+hub
+hub.exe
+itplus-hub
+itplus-hub.exe
 
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
+version.go
 
-# Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
-.glide/
+itplus-*.log
+

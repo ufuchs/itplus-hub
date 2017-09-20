@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ITPlus Monitor</title>
+    <link rel="stylesheet" href="{{ .Static }}css/bootstrap.min.css" type="text/css">
+    <link rel="shortcut icon" href="{{ .Static }}img/favicon.ico">
+    <script src="{{ .Static }}js/jquery-3.2.0.min.js" type="text/javascript"></script>
+    <script src="{{ .Static }}js/dygraph.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default"   role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">ITPlus Monitor</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      {{ template "content" . }}
+    </div>
+  </body>
+</html>

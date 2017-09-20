@@ -1,0 +1,97 @@
+Lacrosse Gateway
+
+[Bild]
+
+Erst-Inbetriebnahme
+--------------
+
+1. USB-Micro-Stecker vom Gateway trennen, falls verbunden.
+
+2. USB-Netzteil mit Steckdose verbinden.
+
+3. USB-Micro-Stecker mit Gateway verbinden.
+
+4. Blaue LED am ESP zeigt Standlicht, die andere blaue LED beginnt regelmäßig zu blinken.
+   Dies zeigt die Verbindungsaufnahme mit dem WLAN-Router (z.B. Fritz.Box) an.
+
+   [Bild]
+
+
+
+
+Inbetriebnahme
+--------------
+
+1. USB-Micro-Stecker vom Gateway trennen, falls verbunden.
+
+2. USB-Netzteil mit Steckdose verbinden.
+
+3. USB-Micro-Stecker mit Gateway verbinden.
+
+4. Blaue LED am ESP zeigt Standlicht, die andere blaue LED beginnt regelmäßig zu blinken.
+   Dies zeigt die Verbindungsaufnahme mit dem WLAN-Router (z.B. Fritz.Box) an.
+
+5. Nach erfolgreicher Verbindungsaufnahme erlischt die LED am ESP, die andere LED
+   beginnt unregelmäßig zu blinken.
+   Das unregelmäßige Blinken setzt voraus, dass sich Sensoren in der Nähe befinden,
+   deren Signale nun verarbeitet werden.
+
+6. Nun eine Verbindung mit dem          
+
+
+Messwerte
+----------
+
+Beispiele
+
+OK 9 14 1 4 173 56
+OK 9 46 1 4 178 59
+OK 9 6 1 4 177 57
+OK 9 42 1 4 183 56
+OK VALUES LGW 12174579 UpTimeSeconds=2870,UpTimeText=0Tg. 0Std. 47Min. 50Sek. ,WIFI=freude.sei.mit.euch,ReceivedFrames=3811,FramesPerMinute=84,RSSI=-64,FreeHeap=16752,LD.Min=0.18,LD.Avg=0.19,LD.Max=30.09,OLED=none
+OK 9 11 1 4 32 74
+OK 9 46 1 4 178 59
+OK 9 6 1 4 177 57
+
+// Format
+//
+// OK 9 56 1   4   156 37     ID = 56  T: 18.0  H: 37  no NewBatt
+// OK 9 49 1   4   182 54     ID = 49  T: 20.6  H: 54  no NewBatt
+// OK 9 55 129 4   192 56     ID = 55  T: 21.6  H: 56  WITH NewBatt
+// OK 9 ID XXX XXX XXX XX
+// |  | |  |   |   |   |
+// |  | |  |   |   |   --- Humidity incl. WeakBatteryFlag
+// |  | |  |   |   |------ Temp * 10 + 1000 LSB
+// |  | |  |   |---------- Temp * 10 + 1000 MSB
+// |  | |  |-------------- Sensor type (1 or 2) +128 if NewBatteryFlag
+// |  | |----------------- Sensor ID
+// |  |------------------- fix "9"
+// |---------------------- fix "OK"
+
+Ermitteln der Temperatur
+
+// OK 9 55 129 4   192 56     ID = 55  T: 21.6  H: 56  WITH NewBatt
+//             |   |   |
+//             |   |   --- Humidity incl. WeakBatteryFlag
+//             |   |------ L
+//             |---------- H
+
+(H * 256) + L) - 1000
+---------------------  = t
+         10
+
+(4 * 256 + 192) - 1000
+----------------------  = 21.6
+         10         
+
+
+Filtern der Statusmessage
+
+var pre = daten[0:4]
+
+if pre == 'OK VA' {
+    continue
+}        
+
+...
+

@@ -1,0 +1,5 @@
+---
+dataport: 8080
+discoveryport: 0
+serviceport: 0
+configfilesdir: ""

@@ -1,0 +1,56 @@
+name: aleta
+modifiedon: 2017-05-17T175924
+outputscheme:
+  show_unknown_devices: false
+  interval: 60
+devices:
+- id: 1
+  num: 193
+  addr: 7
+  type: TX29TDH-IT
+  alias: R 2.7 - Schreibtisch
+  absent: false
+  locked: false
+  lon: 19.31
+  lat: 19.32
+  alt: 19.33
+- id: 2
+  num: 194
+  addr: 44
+  type: TX29TDH-IT
+  alias: R 2.7 - Kühlschrank
+  absent: false
+  locked: false
+  lon: 19.41
+  lat: 19.42
+  alt: 19.43
+- id: 3
+  num: 195
+  addr: 48
+  type: TX29TDH-IT
+  alias: R 2.7 - Wand
+  absent: false
+  locked: false
+  lon: 19.51
+  lat: 19.52
+  alt: 19.53
+- id: 4
+  num: 7
+  addr: 24
+  type: TX25TP-IT
+  alias: R 2.7 - Fenster:Draußen - AUCOTEAM Nordseite
+  absent: false
+  locked: false
+  lon: 7.1
+  lat: 7.2
+  alt: 7.3
+- id: 5
+  num: 10
+  addr: 0
+  type: xyz
+  alias: ""
+  absent: false
+  locked: false
+  lon: 0
+  lat: 0
+  alt: 0

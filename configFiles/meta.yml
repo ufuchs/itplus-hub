@@ -1,0 +1,9 @@
+---
+configurations:
+  - configname: "aleta"
+    hostname: "Fuchs-W7"
+  - configname: "aleta"
+    hostname: "minestrone"
+  - configname: "home"
+    hostname: "salata"
+    
