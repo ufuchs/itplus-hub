@@ -11,6 +11,8 @@ package jeelink
 import (
 	"errors"
 	"fmt"
+	"net"
+	"sync"
 
 	"ufuchs/itplus/base/fcc"
 	"ufuchs/itplus/base/zvous"
@@ -29,6 +31,7 @@ const (
 	JEELINK_PORT = "JEELINK_PORT"
 	BAUD         = 57600
 	BUFSIZE      = 384
+	ROUNDS       = 10000
 )
 
 //
@@ -41,6 +44,13 @@ type JeeLink struct {
 	Out        chan []byte
 	dispatcher *qualify.Dispatcher
 	err        error
+}
+
+type readResult struct {
+	color []byte
+	buf   []byte
+	n     int
+	err   error
 }
 
 //
@@ -115,134 +125,108 @@ func (j *JeeLink) Close() {
 	return
 }
 
-// //
-// //
-// //
-// func newReadResult(color string) *readResult {
-// 	return &readResult{
-// 		color: []byte(color),
-// 		buf:   make([]byte, BUFSIZE, BUFSIZE*2),
-// 	}
-// }
+//
+//
+//
+func newReadResult(color string) *readResult {
+	return &readResult{
+		color: []byte(color),
+		buf:   make([]byte, BUFSIZE, BUFSIZE*2),
+	}
+}
 
-// //
-// //
-// //
-// func run(conn net.Conn) {
-// 	var (
-// 		//text     = make([]byte, BUFSIZE, BUFSIZE*2)
-// 		//firstRun = true
-// 		wg     sync.WaitGroup
-// 		textOK = false
-// 	)
+//
+//
+//
+func run(conn net.Conn) {
+	var (
+		//text     = make([]byte, BUFSIZE, BUFSIZE*2)
+		//firstRun = true
+		wg     sync.WaitGroup
+		textOK = false
+	)
 
-// 	var (
-// 		INa      = newReadResult("green")
-// 		INb      = newReadResult("red")
-// 		INin     *readResult
-// 		INout    *readResult
-// 		INtoggle = false
-// 	)
+	var (
+		INa      = newReadResult("green")
+		INb      = newReadResult("red")
+		INin     *readResult
+		INout    *readResult
+		INtoggle = false
+	)
 
-// 	var (
-// 		i             uint64
-// 		j             int
-// 		OUTa          = make([]byte, ROUNDS*100, ROUNDS*100*2)
-// 		OUTb          = make([]byte, ROUNDS*100, ROUNDS*100*2)
-// 		OUTin, OUTout *[]byte
-// 		OUTtoggle     = false
-// 	)
-// 	OUTb = OUTb[:0]
-// 	OUTin = &OUTb
-// 	OUTout = &OUTa
+	var (
+		OUTa          = make([]byte, ROUNDS*100, ROUNDS*100*2)
+		OUTb          = make([]byte, ROUNDS*100, ROUNDS*100*2)
+		OUTin, OUTout *[]byte
+		OUTtoggle     = false
+	)
+	OUTb = OUTb[:0]
+	OUTin = &OUTb
+	OUTout = &OUTa
 
-// 	//text = text[:0]
+	//text = text[:0]
 
-// 	for {
+	for {
 
-// 		if INtoggle {
-// 			INin = INb
-// 			INout = INa
-// 		} else {
-// 			INin = INa
-// 			INout = INb
-// 		}
-// 		INtoggle = !INtoggle
+		if INtoggle {
+			INin = INb
+			INout = INa
+		} else {
+			INin = INa
+			INout = INb
+		}
+		INtoggle = !INtoggle
 
-// 		wg.Add(2)
+		wg.Add(2)
 
-// 		go func(r *readResult, wg *sync.WaitGroup) {
-// 			r.n, r.err = conn.Read(r.buf)
-// 			//			fmt.Println(r.n, string(r.buf))
-// 			wg.Done()
-// 		}(INin, &wg)
+		go func(r *readResult, wg *sync.WaitGroup) {
+			r.n, r.err = conn.Read(r.buf)
+			//			fmt.Println(r.n, string(r.buf))
+			wg.Done()
+		}(INin, &wg)
 
-// 		go func(r *readResult, text *[]byte, wg *sync.WaitGroup) {
+		go func(r *readResult, text *[]byte, wg *sync.WaitGroup) {
 
-// 			// if textOK {
-// 			// 	text = text[:0]
-// 			// 	textOK = false
-// 			// }
+			// if textOK {
+			// 	text = text[:0]
+			// 	textOK = false
+			// }
 
-// 			for i := 0; i < r.n; i++ {
+			for i := 0; i < r.n; i++ {
 
-// 				var c = r.buf[i]
+				var c = r.buf[i]
 
-// 				switch c {
-// 				case 0:
-// 					continue
-// 				case 10:
-// 					*text = append(*text, c)
-// 					if i < r.n {
+				switch c {
+				case 0:
+					continue
+				case 10:
+					*text = append(*text, c)
+					if i < r.n {
 
-// 						continue
-// 					}
-// 					textOK = true
-// 					fmt.Println("...")
-// 					goto end
-// 				default:
-// 					*text = append(*text, c)
-// 				}
+						continue
+					}
+					textOK = true
+					fmt.Println("...")
+					goto end
+				default:
+					*text = append(*text, c)
+				}
 
-// 			}
+			}
 
-// 		end:
+		end:
 
-// 			wg.Done()
+			wg.Done()
 
-// 		}(INout, OUTin, &wg)
+		}(INout, OUTin, &wg)
 
-// 		wg.Wait()
+		wg.Wait()
 
-// 		//fmt.Println(string(text))
+		//fmt.Println(string(text))
 
-// 		if i == ROUNDS {
+	}
 
-// 			if OUTtoggle {
-// 				OUTb = OUTb[:0]
-// 				OUTin = &OUTb
-// 				OUTout = &OUTa
-// 			} else {
-// 				OUTa = OUTa[:0]
-// 				OUTin = &OUTa
-// 				OUTout = &OUTb
-// 			}
-// 			OUTtoggle = !OUTtoggle
-
-// 			go func(b *[]byte, j int) {
-// 				s := fmt.Sprintf("aaa-%02d.txt", j)
-// 				ioutil.WriteFile(s, *b, 0644)
-// 			}(OUTout, j)
-
-// 			j++
-// 			i = 0
-// 		} else {
-// 			i++
-// 		}
-
-// 	}
-
-// }
+}
 
 //
 //
