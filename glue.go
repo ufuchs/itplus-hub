@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"hidrive.com/ufuchs/itplus/base/zvous"
-	"hidrive.com/ufuchs/itplus/hub/jeelink"
+	"ufuchs/itplus/base/zvous"
+	"ufuchs/itplus/hub/jeelink"
 )
 
 type Glue struct {

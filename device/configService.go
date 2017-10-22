@@ -1,7 +1,7 @@
 package device
 
 import (
-	"hidrive.com/ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/base/fcc"
 )
 
 type (

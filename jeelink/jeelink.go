@@ -12,10 +12,10 @@ import (
 	"errors"
 	"fmt"
 
-	"hidrive.com/ufuchs/itplus/base/fcc"
-	"hidrive.com/ufuchs/itplus/base/zvous"
-	"hidrive.com/ufuchs/itplus/hub/app"
-	"hidrive.com/ufuchs/itplus/hub/qualify"
+	"ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/base/zvous"
+	"ufuchs/itplus/hub/app"
+	"ufuchs/itplus/hub/qualify"
 )
 
 var (

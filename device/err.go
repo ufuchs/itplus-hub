@@ -3,7 +3,7 @@ package device
 import (
 	"fmt"
 
-	"hidrive.com/ufuchs/itplus/base/oops"
+	"ufuchs/itplus/base/oops"
 )
 
 var EC_Messages = map[int]string{

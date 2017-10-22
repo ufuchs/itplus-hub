@@ -14,7 +14,7 @@ import (
 	"strconv"
 	"strings"
 
-	"hidrive.com/ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/base/fcc"
 )
 
 type Measurement struct {

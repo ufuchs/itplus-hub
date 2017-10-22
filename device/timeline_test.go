@@ -7,8 +7,8 @@ import (
 	"path"
 	"testing"
 
-	"hidrive.com/ufuchs/itplus/base/fcc"
-	"hidrive.com/ufuchs/itplus/base/oops"
+	"ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/base/oops"
 )
 
 var testFilenames = []string{

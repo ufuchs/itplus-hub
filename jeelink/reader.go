@@ -5,9 +5,10 @@ import (
 	"io"
 	"net"
 
+	"ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/base/zvous"
+
 	"github.com/tarm/serial"
-	"hidrive.com/ufuchs/itplus/base/fcc"
-	"hidrive.com/ufuchs/itplus/base/zvous"
 )
 
 type Flusher interface {

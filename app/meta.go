@@ -7,8 +7,8 @@ import (
 	"path"
 	"strings"
 
-	"hidrive.com/ufuchs/itplus/base/fcc"
-	"hidrive.com/ufuchs/itplus/hub/device"
+	"ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/hub/device"
 )
 
 type (

@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"time"
 
-	"hidrive.com/ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/base/fcc"
 )
 
 const STATIC_URL string = "/static/"

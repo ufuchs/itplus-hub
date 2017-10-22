@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"hidrive.com/ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/base/fcc"
 )
 
 var testConfigDir = os.TempDir()

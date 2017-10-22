@@ -18,11 +18,11 @@ import (
 
 	"github.com/ufuchs/zeroconf"
 
-	"hidrive.com/ufuchs/itplus/base/fcc"
-	"hidrive.com/ufuchs/itplus/base/zvous"
-	"hidrive.com/ufuchs/itplus/hub/app"
-	"hidrive.com/ufuchs/itplus/hub/jeelink"
-	"hidrive.com/ufuchs/itplus/hub/socket"
+	"ufuchs/itplus/base/fcc"
+	"ufuchs/itplus/base/zvous"
+	"ufuchs/itplus/hub/app"
+	"ufuchs/itplus/hub/jeelink"
+	"ufuchs/itplus/hub/socket"
 )
 
 //
